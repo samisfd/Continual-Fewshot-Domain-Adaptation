@@ -26,6 +26,7 @@ This study focuses primarily on analyzing the performance of two different Task-
     conda install pytorch==1.5.1 torchvision==0.6.1 cudatoolkit=10.2 -c pytorch
     pip install -r requirements.txt
     
+### Training
     
 
 
