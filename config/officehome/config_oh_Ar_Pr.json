@@ -1,0 +1,74 @@
+{
+  "seed": 1337,
+  "exp_base": "./exps",
+  "exp_name": "officehome",
+  "exp_id": "Art->Product:naiv",
+  "agent": "CDSAgent",
+  "validate_freq": 1,
+  "copy_checkpoint_freq" : 50,
+  
+  "data_params": {
+    "num_workers" :4,
+    "image_size" : 224,
+    "task_num" : 8,
+    "name": "office_home",
+    "source": "Art",
+    "target": "Product",
+    "fewshot": "6",
+    "task": true,
+    "aug": "aug_0"
+  },
+  "num_epochs": 500,
+  "steps_epoch": null,
+
+  "optim_params": {
+    "learning_rate": 0.01,
+    "conv_lr_ratio": 0.1,
+    "patience": 4,
+    "batch_size_lbd": 32,
+    "batch_size": 64,
+    "momentum" : 0.9,
+    "nesterov": true,
+    "lr_decay_rate" : 0.1,
+    "decay": true,
+    "weight_decay": 5e-4,
+    "cls_update": true
+  },
+  "model_params": {
+    "out_dim": 512,
+    "version": "pretrain-resnet50",
+    "load_weight": "src-tgt",
+    "load_weight_thres": 30,
+    "load_weight_epoch": 5,
+    "load_memory_bank" : true
+  },
+  "loss_params": {
+    "thres_src": 0.95,
+    "thres_tgt": 0.98,
+    "temp": 0.1,
+    "loss": [
+      "cls-so",
+      "proto-src",
+      "proto-tgt",
+      "I2C-cross",
+      "semi-condentmax",
+      "semi-entmin",
+      "tgt-condentmax",
+      "tgt-entmin"
+    ],
+    "weight": [1, 1, 0.5,1, 0.05, 0.5, 0.05, 0.5],
+    "m" : 0.5,
+    "T" : 0.05,
+    "pseudo" : true,
+
+    "clus": {
+      "kmeans_freq": 1,
+      "type": ["each"],
+      "n_k": 32,
+      "k": [64, 128],
+      "k_task" : [8,16]
+      
+      
+    }
+  }
+}
